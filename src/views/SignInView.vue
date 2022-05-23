@@ -1,6 +1,6 @@
 <template>
   <div :style="{backgroundImage:`url(${Background})`}" class="signInBackground">
-  bacground
+  <div></div>
   </div>
 </template>
 
