@@ -3,14 +3,13 @@
 </template>
 
 <script setup>
- import { defineProps } from 'vue';
-
-defineProps({
-  label: {
-    type: String,
-    required: true
-  }
-})
+  import { defineProps } from 'vue';
+  defineProps({
+      label: {
+        type: String,
+        required: true
+      }
+    })
 </script>
 <style scoped>
   .customInput {
