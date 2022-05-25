@@ -27,7 +27,11 @@ async function handleClick() {
     const response = await fetch('https://api.github.com/repositories/19438/issues');
     const body = await response.json();
     console.log(body)
-    this.$router.push('Home')
+    this.$notify({
+      title: "Email wysłano",
+      type: "success",
+      text: "Sprawdz skrzynke email",
+    })
   }
 }
 export default {
