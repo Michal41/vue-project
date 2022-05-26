@@ -24,10 +24,23 @@ export default {
         showSpinner: showSpinner
     }
   },
-  mounted() {
-    console.log(this.$route.params)
-    // perform request
-    showSpinner.value = false
+  async mounted() {
+    try {
+      const {userId, token} = this.$route.params
+      const response = await fetch(`http://localhost:8080/confirm?token=${token}&userId=${userId}`)
+      const isValid = await response.json()
+      if (response.status === 200 && isValid) {
+        this.$router.push('/trips')
+        return
+      }
+    } catch (error) {
+      showSpinner.value = false
+      this.$notify({
+        title: "Błąd",
+        type: "error",
+        text: "Token niepoprawny",
+      })
+    }
   }
 }
 
