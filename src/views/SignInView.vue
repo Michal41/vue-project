@@ -24,14 +24,23 @@ function handleChange(e) {
 }
 async function handleClick() {
   if (inputVal.value) {
-    const response = await fetch('https://api.github.com/repositories/19438/issues');
+    const response = await fetch(`http://localhost:8080/user/name/${inputVal.value}`);
     const body = await response.json();
-    console.log(body)
-    this.$notify({
-      title: "Email wysłano",
-      type: "success",
-      text: "Sprawdz skrzynke email",
-    })
+    if(response.status === 200 && Boolean(body.id)){
+      this.$notify({
+        title: "Email wysłano",
+        type: "success",
+        text: "Sprawdz skrzynke email",
+      })
+    }
+    else {
+      this.$notify({
+        title: "Błąd",
+        type: "error",
+        text: "Login niepoprawny",
+      })
+    }
+
   }
 }
 export default {
