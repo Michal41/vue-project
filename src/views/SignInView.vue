@@ -25,22 +25,23 @@ function handleChange(e) {
 async function handleClick() {
   if (inputVal.value) {
     const response = await fetch(`http://localhost:8080/user/name/${inputVal.value}`);
-    const body = await response.json();
-    if(response.status === 200 && Boolean(body.id)){
-      this.$notify({
-        title: "Email wysłano",
-        type: "success",
-        text: "Sprawdz skrzynke email",
-      })
+    const { id } = await response.json();
+    if(response.status === 200){
+      const createToken = await fetch(`http://localhost:8080/token/${id}`);
+      if(createToken.status === 200) {
+        this.$notify({
+          title: "Email wysłano",
+          type: "success",
+          text: "Sprawdz skrzynke email",
+        })
+        return
+      }
     }
-    else {
-      this.$notify({
+    this.$notify({
         title: "Błąd",
         type: "error",
         text: "Login niepoprawny",
       })
-    }
-
   }
 }
 export default {
