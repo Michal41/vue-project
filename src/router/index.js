@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import About from '../views/AboutView'
 import SignInView from '../views/SignInView'
+import ValidateTokenView from '../views/ValidateTokenView'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: About,
+  },
+  {
+    path: '/validate-token/:userId/:token',
+    name: 'validateToken',
+    component: ValidateTokenView,
   }
 ]
 
