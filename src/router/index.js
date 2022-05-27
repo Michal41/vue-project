@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import About from '../views/AboutView'
 import SignInView from '../views/SignInView'
 import ValidateTokenView from '../views/ValidateTokenView'
+import WelcomeView from '../views/WelcomeView'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/validate-token/:userId/:token',
     name: 'validateToken',
     component: ValidateTokenView,
+  },
+  {
+    path: '/welcome-page/:userId',
+    name: 'welcomePage',
+    component: WelcomeView,
   }
 ]
 

@@ -1,5 +1,11 @@
 <template>
-  <button class="customInput" @click="$emit('handleClick')" >{{label}}</button>
+  <button
+    class="customInput"
+    @click="$emit('handleClick')"
+    :style="{background: backgroundColor, color: color }"
+  >
+  {{label}}
+</button>
 </template>
 
 <script setup>
@@ -8,13 +14,19 @@
       label: {
         type: String,
         required: true
+      },
+      backgroundColor: {
+        type: String,
+        default: '#9E8370',
+      },
+      color: {
+        type: String,
+        default: '#2B1D12',
       }
     })
 </script>
 <style scoped>
   .customInput {
-    color: #2B1D12;
-    background: #9E8370;
     font-size: 15px;
     border-radius: 15px;
     padding: 1em;

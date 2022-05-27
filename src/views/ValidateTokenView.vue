@@ -1,8 +1,6 @@
 <template>
-  <div :style="{backgroundImage:`url(${Background})`}" class="signInBackground">
-  <div v-if="showSpinner">
-    <loading-spinner />
-  </div>
+  <div :style="{backgroundImage:`url(${Background})`}" class="background">
+    <loading-spinner :showSpinner="showSpinner" />
   </div>
 </template>
 
@@ -47,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-  .signInBackground{
+  .background{
     width: 100vw;
     height: 100vh;
     background-repeat: no-repeat;

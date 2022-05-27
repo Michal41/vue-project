@@ -1,9 +1,15 @@
 <template>
-  <div class="loader"></div>
+  <div class="loader" v-if="showSpinner"></div>
 </template>
 
 <script setup>
-
+  import { defineProps } from 'vue';
+  defineProps({
+      showSpinner: {
+        type: Boolean,
+        required: true
+      }
+    })
 </script>
 
 <style scoped>
