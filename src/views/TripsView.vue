@@ -24,8 +24,11 @@
         </tr>
       </table>
       <div class="buttonContainer">
-        <custom-button label="Dodaj" />
+        <custom-button label="Dodaj" @handle-click="openModal" />
       </div>
+        <custom-modal :show-modal="modalOpen" @close-modal="closeModal">
+          xxxx
+        </custom-modal>
     </div>
   </div>
 </template>
@@ -36,9 +39,12 @@ import LondonPreview from '../assets/londonPreview.png'
 import OmanPreview from '../assets/omanPreview.png'
 import TripPreviewImage from '@/components/TripPreviewImage.vue'
 import CustomButton from '@/components/CustomButton.vue'
+import CustomModal from '@/components/CustomModal.vue'
 
 import { ref } from 'vue'
 const trips = ref([])
+const modalOpen = ref(false)
+
 async function fetchTrips() {
   const response = await fetch(`http://localhost:8080/trips`)
   const body = await response.json()
@@ -49,12 +55,15 @@ export default {
   components: {
     TripPreviewImage,
     CustomButton,
+    CustomModal,
 },
   methods: {
-    handleButtonClick: function() {
-      const {userId} = this.$route.params
-      this.$router.push(`/${userId}/trips`)
-    }
+    closeModal: function() {
+      modalOpen.value = false;
+    },
+    openModal: function() {
+      modalOpen.value = true;
+    },
   },
   data: function () {
     return {
@@ -62,6 +71,7 @@ export default {
         LondonPreview: LondonPreview,
         OmanPreview: OmanPreview,
         trips: trips,
+        modalOpen: modalOpen,
     }
   },
   async mounted() {
