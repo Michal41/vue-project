@@ -6,8 +6,27 @@
       <trip-preview-image :img="OmanPreview" label="OMAN" />
     </div>
   </div>
-  <div class="listSection">
-    12
+  <div class="listSectionContainer">
+    <div class="listSection">
+      <h3 class="addTripTitle">
+        Dodaj podróz
+      </h3>
+      <table class="tripsTable">
+        <tr>
+          <th><span>Miejsce</span></th>
+          <th><span>Dzień rozpoczęcia</span></th>
+          <th><span>Dzień zakończenia</span></th>
+        </tr>
+        <tr>
+          <td><span>Oman</span></td>
+          <td><span>2020-02-02</span></td>
+          <td><span>2022-01-03</span></td>
+        </tr>
+      </table>
+      <div class="buttonContainer">
+        <custom-button label="Dodaj" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,6 +35,7 @@ import RomaPreview from '../assets/romaPreview.png'
 import LondonPreview from '../assets/londonPreview.png'
 import OmanPreview from '../assets/omanPreview.png'
 import TripPreviewImage from '@/components/TripPreviewImage.vue'
+import CustomButton from '@/components/CustomButton.vue'
 
 import { ref } from 'vue'
 const showSpinner = ref(true)
@@ -24,6 +44,7 @@ const userName = ref('')
 export default {
   components: {
     TripPreviewImage,
+    CustomButton,
 },
   methods: {
     handleButtonClick: function() {
@@ -61,7 +82,7 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  .listSection {
+  .listSectionContainer {
     width: 100%;
     height: 50vh;
     background-repeat: no-repeat;
@@ -77,5 +98,49 @@ export default {
     justify-content: space-between;
     max-width: 1200px;
   }
+  .addTripTitle {
+    margin: 0px;
+    font-weight: normal;
+    color: #707070;
+    padding-top: 1em;
 
+  }
+  .listSection {
+    max-width: 1200px;
+    margin: auto;
+  }
+  .tripsTable {
+    margin-top: 2em;
+    width: 100%;
+    text-align: left;
+    color: #707070;
+    border-collapse: separate;
+    border-spacing: 1em;
+  }
+
+  .tripsTable th span {
+    border-bottom: 8px solid #707070;
+    display: block;
+    margin-right: 1em;
+    padding: 10px;
+    font-weight: normal;
+  }
+  .tripsTable td {
+    width: 33%;
+  }
+  .tripsTable tr {
+    margin-top: 2em;
+  }
+  .tripsTable td span{
+    margin-right: 1em;
+    background-color: #E4CEF9;
+    border-radius: 10px;
+    padding: 20px;
+    display: block;
+  }
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2em;
+  }
 </style>
