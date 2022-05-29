@@ -38,8 +38,18 @@ export default {
     CustomButton
 },
   methods: {
-    addTrip: function() {
-      this.$emit('refresh-trips')
+    addTrip: async function() {
+      console.log(formValues.value)
+      const response = await fetch('http://localhost:8080/trip/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formValues.value),
+      });
+      console.log(response);
+      this.$emit('refresh-trips');
     },
     handleChange: function(type, e) {
       const values = formValues.value
@@ -53,7 +63,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this)
   }
 }
 
@@ -70,3 +79,5 @@ export default {
     align-items: flex-end;
   }
 </style>
+
+
