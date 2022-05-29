@@ -17,10 +17,10 @@
           <th><span>Dzień rozpoczęcia</span></th>
           <th><span>Dzień zakończenia</span></th>
         </tr>
-        <tr>
-          <td><span>Oman</span></td>
-          <td><span>2020-02-02</span></td>
-          <td><span>2022-01-03</span></td>
+        <tr v-for="({ place, id, dateStart, dateEnd }) in trips" v-bind:key="id">
+          <td><span>{{place}}</span></td>
+          <td><span>{{dateStart}}</span></td>
+          <td><span>{{dateEnd}}</span></td>
         </tr>
       </table>
       <div class="buttonContainer">
@@ -38,8 +38,12 @@ import TripPreviewImage from '@/components/TripPreviewImage.vue'
 import CustomButton from '@/components/CustomButton.vue'
 
 import { ref } from 'vue'
-const showSpinner = ref(true)
-const userName = ref('')
+const trips = ref([])
+async function fetchTrips() {
+  const response = await fetch(`http://localhost:8080/trips`)
+  const body = await response.json()
+  trips.value = body
+}
 
 export default {
   components: {
@@ -54,19 +58,14 @@ export default {
   },
   data: function () {
     return {
-        showSpinner: showSpinner,
         RomaPreview: RomaPreview,
         LondonPreview: LondonPreview,
         OmanPreview: OmanPreview,
-        userName: userName,
+        trips: trips,
     }
   },
   async mounted() {
-    const {userId} = this.$route.params
-    const response = await fetch(`http://localhost:8080/user/${userId}`)
-    const { name } = await response.json()
-    showSpinner.value = false
-    userName.value = name
+    fetchTrips()
   }
 }
 
@@ -75,7 +74,6 @@ export default {
 <style scoped>
   .previewSection {
     width: 100%;
-    height: 50vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: linear-gradient(#E1DDFE 0%,#FEC8FC 30%, #FFEDE4 100%);
@@ -84,7 +82,6 @@ export default {
   }
   .listSectionContainer {
     width: 100%;
-    height: 50vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: linear-gradient(#FFEDE4 0%,#FEC8FC 30%, #E1DDFE 100%);
@@ -142,5 +139,6 @@ export default {
     display: flex;
     justify-content: flex-end;
     margin-right: 2em;
+    padding-bottom: 3em;
   }
 </style>
