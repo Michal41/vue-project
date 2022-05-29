@@ -1,5 +1,6 @@
 <template>
   <button
+    :disabled="disabled"
     class="customInput"
     @click="$emit('handleClick')"
     :style="{background: backgroundColor, color: color }"
@@ -22,7 +23,11 @@
       color: {
         type: String,
         default: '#2B1D12',
-      }
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
     })
 </script>
 <style scoped>
@@ -32,6 +37,9 @@
     padding: 1em;
     border: none;
     cursor: pointer;
+  }
+  .customInput:disabled {
+    cursor: not-allowed;
   }
 
 </style>

@@ -1,9 +1,23 @@
 <template>
-  <input class="customInput" @input="(e) => $emit('handleChange', e)" />
+  <input
+    class="customInput"
+    @input="(e) => $emit('handleChange', e)"
+    :placeholder="placeholder"
+    :style="customStyles"
+  />
 </template>
 
 <script setup>
-
+  import { defineProps } from 'vue';
+    defineProps({
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      customStyles: {
+        type: Object,
+      },
+    })
 </script>
 
 <style scoped>

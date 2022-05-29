@@ -27,7 +27,7 @@
         <custom-button label="Dodaj" @handle-click="openModal" />
       </div>
         <custom-modal :show-modal="modalOpen" @close-modal="closeModal">
-          xxxx
+          <add-trip-form @refresh-trips="refreshTrips" />
         </custom-modal>
     </div>
   </div>
@@ -40,6 +40,7 @@ import OmanPreview from '../assets/omanPreview.png'
 import TripPreviewImage from '@/components/TripPreviewImage.vue'
 import CustomButton from '@/components/CustomButton.vue'
 import CustomModal from '@/components/CustomModal.vue'
+import AddTripForm from '@/components/AddTripForm.vue'
 
 import { ref } from 'vue'
 const trips = ref([])
@@ -56,6 +57,7 @@ export default {
     TripPreviewImage,
     CustomButton,
     CustomModal,
+    AddTripForm,
 },
   methods: {
     closeModal: function() {
@@ -63,6 +65,10 @@ export default {
     },
     openModal: function() {
       modalOpen.value = true;
+    },
+    refreshTrips: function() {
+      modalOpen.value = false;
+      fetchTrips()
     },
   },
   data: function () {
