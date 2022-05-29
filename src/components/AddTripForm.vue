@@ -3,17 +3,17 @@
     <custom-input
       placeholder="Miejsce"
       :customStyles="{width: '45%'}"
-      @handle-change="(e) => handleChange('place', e)"
+      @handle-change="handleInputChange"
     />
-    <custom-input
+    <custom-date-picker
       placeholder="Data rozpoczęcia"
       :customStyles="{width: '45%'}"
-      @handle-change="(e) => handleChange('startDate', e)"
+      @date-changed="(e) => handleDateChange('startDate', e)"
     />
-    <custom-input
+    <custom-date-picker
       placeholder="Data zakończenia"
       :customStyles="{width: '45%'}"
-      @handle-change="(e) => handleChange('endDate', e)"
+      @date-changed="(e) => handleDateChange('endDate', e)"
     />
     <div class="buttonContainer">
       <custom-button
@@ -28,6 +28,8 @@
 <script>
 import CustomInput from './CustomInput.vue';
 import CustomButton from './CustomButton.vue';
+import CustomDatePicker from './CustomDatePicker.vue';
+
 import { ref } from 'vue';
 
 const formValues = ref({ place: '', endDate: '', startDate: '' })
@@ -35,7 +37,8 @@ const formValues = ref({ place: '', endDate: '', startDate: '' })
 export default {
   components: {
     CustomInput,
-    CustomButton
+    CustomButton,
+    CustomDatePicker
 },
   methods: {
     addTrip: async function() {
@@ -51,9 +54,14 @@ export default {
       console.log(response);
       this.$emit('refresh-trips');
     },
-    handleChange: function(type, e) {
+    handleInputChange: function(e) {
       const values = formValues.value
-      values[type] = e.target.value
+      values.place = e.target.value
+      formValues.value = values
+    },
+    handleDateChange: function(type, e) {
+      const values = formValues.value
+      values[type] = e.toISOString().split('T')[0]
       formValues.value = values
     }
   },
