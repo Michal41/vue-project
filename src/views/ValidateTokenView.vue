@@ -28,7 +28,7 @@ export default {
       const response = await fetch(`http://localhost:8080/confirm?token=${token}&userId=${userId}`)
       const isValid = await response.json()
       if (response.status === 200 && isValid) {
-        this.$router.push('/trips')
+        this.$router.push(`/welcome-page/${userId}`)
         return
       }
     } catch (error) {

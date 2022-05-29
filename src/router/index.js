@@ -4,6 +4,8 @@ import About from '../views/AboutView'
 import SignInView from '../views/SignInView'
 import ValidateTokenView from '../views/ValidateTokenView'
 import WelcomeView from '../views/WelcomeView'
+import TripsView from '../views/TripsView'
+
 
 const routes = [
   {
@@ -30,6 +32,11 @@ const routes = [
     path: '/welcome-page/:userId',
     name: 'welcomePage',
     component: WelcomeView,
+  },
+  {
+    path: '/:userId/trips',
+    name: 'trips',
+    component: TripsView,
   }
 ]
 

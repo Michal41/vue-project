@@ -4,7 +4,13 @@
     <loading-spinner :showSpinner="showSpinner" />
     <div class="greetings">
       <h1>Witaj {{userName}}</h1>
-      <custom-button label="Przejdz do moich podrózy" color="white" backgroundColor="#292015"/>
+      <custom-button
+        label="Przejdz do moich podrózy"
+        color="white"
+        backgroundColor="#292015"
+        @handle-click="handleButtonClick"
+      />
+
     </div>
   </div>
 </template>
@@ -23,6 +29,10 @@ export default {
     CustomButton
 },
   methods: {
+    handleButtonClick: function() {
+      const {userId} = this.$route.params
+      this.$router.push(`/${userId}/trips`)
+    }
   },
   data: function () {
     return {
@@ -69,6 +79,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-content: center;
+    z-index: 999;
   }
 
 </style>
