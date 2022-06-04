@@ -26,7 +26,7 @@
       <div class="buttonContainer">
         <custom-button label="Dodaj" @handle-click="openModal" />
       </div>
-        <custom-modal :show-modal="modalOpen" @close-modal="closeModal">
+        <custom-modal :show-modal="modalOpen" @close-modal="closeModal" title="Dodaj podróż">
           <add-trip-form @refresh-trips="refreshTrips" />
         </custom-modal>
     </div>
