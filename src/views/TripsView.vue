@@ -17,7 +17,7 @@
           <th><span>Dzień rozpoczęcia</span></th>
           <th><span>Dzień zakończenia</span></th>
         </tr>
-        <tr v-for="({ place, id, dateStart, dateEnd }) in trips" v-bind:key="id">
+        <tr v-for="({ place, id, dateStart, dateEnd }) in trips" v-bind:key="id" @click="$router.push(`/trips/${id}`)">
           <td><span>{{place}}</span></td>
           <td><span>{{dateStart}}</span></td>
           <td><span>{{dateEnd}}</span></td>
@@ -143,6 +143,7 @@ export default {
   }
   .tripsTable tr {
     margin-top: 2em;
+    cursor: pointer;
   }
   .tripsTable td span{
     margin-right: 1em;
