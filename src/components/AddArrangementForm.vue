@@ -1,6 +1,6 @@
 <template>
   <div class="addArrangementFormContainer">
-    <custom-input
+    <custom-text-area
       placeholder="Wpisz tutaj"
       :customStyles="{width: '100%'}"
       @handle-change="handleInputChange"
@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import CustomInput from './CustomInput.vue';
 import CustomButton from './CustomButton.vue';
-
+import CustomTextArea from './CustomTextArea.vue';
 import { ref } from 'vue';
 
 const note = ref('')
@@ -26,7 +25,7 @@ const note = ref('')
 
 export default {
   components: {
-    CustomInput,
+    CustomTextArea,
     CustomButton,
 },
   methods: {
@@ -68,6 +67,7 @@ export default {
     padding: 1em;
   }
   .buttonContainer {
+    margin-top: 1em;
     display: flex;
     align-items: flex-end;
   }
