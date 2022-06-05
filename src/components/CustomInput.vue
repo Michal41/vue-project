@@ -1,5 +1,6 @@
 <template>
   <input
+    :type="type"
     class="customInput"
     @input="(e) => $emit('handleChange', e)"
     :placeholder="placeholder"
@@ -13,6 +14,10 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      type: {
+        type: String,
+        default: 'text'
       },
       customStyles: {
         type: Object,
