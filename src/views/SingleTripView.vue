@@ -42,6 +42,13 @@ async function fetchArrangements(id) {
   toTake.value = toTakeBody
 }
 
+async function fetchTripDetails(id) {
+  const response = await fetch(`http://localhost:8080/trip/${id}`)
+  const body = await response.json()
+  const daysToTripStart = parseInt((new Date(body.dateStart) - Date.now())  / (1000 * 3600 * 24)) + 1
+  console.log(daysToTripStart)
+}
+
 export default {
   components: {
     CustomButton,
@@ -83,6 +90,7 @@ export default {
   async mounted() {
     const { id } = this.$route.params
     fetchArrangements(id)
+    fetchTripDetails(id)
   }
 }
 
