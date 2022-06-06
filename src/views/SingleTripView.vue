@@ -2,23 +2,23 @@
   <div class="arrangementsContainer">
     <div class="arrangements">
       <div class="col">
-        <custom-button label="Dodaj to do" @handle-click="() => toDoHandleModal(true)" />
+        <custom-button label="Dodaj to do" @handle-click="toDoHandleModal(true)" />
         <div class="cell" v-for="({id, note}) in toDo" v-bind:key="id">
           <span>{{note}}</span>
-          <a class="close" @click="$emit('x')" />
+          <a class="close" @click="removeArrangement(id)" />
         </div>
       </div>
       <div class="col">
-        <custom-button label="Dodaj co zabrać" @handle-click="() => toTakeHandleModal(true)" />
+        <custom-button label="Dodaj co zabrać" @handle-click="toTakeHandleModal(true)" />
         <div class="cell" v-for="({id, note}) in toTake" v-bind:key="id">
           <span>{{note}}</span>
-          <a class="close" @click="$emit('x')" />
+          <a class="close" @click="removeArrangement(id)" />
         </div>
       </div>
-      <custom-modal :show-modal="toDoModalOpen" @close-modal="() => toDoHandleModal(false)" title="Dodaj to do">
+      <custom-modal :show-modal="toDoModalOpen" @close-modal="toDoHandleModal(false)" title="Dodaj to do">
         <add-arrangement-form @refresh-arrangements="refreshArrangements" type="toDo" :tripId="tripId" />
       </custom-modal>
-      <custom-modal :show-modal="toTakeModalOpen" @close-modal="() => toTakeHandleModal(false)" title="Dodaj co zabrać">
+      <custom-modal :show-modal="toTakeModalOpen" @close-modal="toTakeHandleModal(false)" title="Dodaj co zabrać">
         <add-arrangement-form @refresh-arrangements="refreshArrangements" type="toTake" :tripId="tripId" />
       </custom-modal>
     </div>
@@ -71,6 +71,17 @@ export default {
     refreshArrangements: function() {
       toDoModalOpen.value = false;
       toTakeModalOpen.value = false;
+      const { id } = this.$route.params
+      fetchArrangements(id)
+    },
+    removeArrangement: async function(arrangementId) {
+      await fetch(`http://localhost:8080/arrangement/${arrangementId}`, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
       const { id } = this.$route.params
       fetchArrangements(id)
     },
