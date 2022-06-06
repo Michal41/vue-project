@@ -1,9 +1,8 @@
 <template>
   <div class="previewSection">
     <div class="imagesContainer">
-      <trip-preview-image :img="LondonPreview" label="LONDYN"/>
-      <trip-preview-image :img="RomaPreview" label="ROME" />
-      <trip-preview-image :img="OmanPreview" label="OMAN" />
+      <trip-preview-image v-for="{id, image, place} of tripsWithImages" :img="image" :label="place" v-bind:key="id"/>
+
     </div>
   </div>
   <div class="listSectionContainer">
@@ -44,12 +43,37 @@ import AddTripForm from '@/components/AddTripForm.vue'
 
 import { ref } from 'vue'
 const trips = ref([])
-const modalOpen = ref(false)
+const tripsWithImages = ref([])
 
+function readFileAsync(file) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  })
+}
+
+const modalOpen = ref(false)
 async function fetchTrips() {
   const response = await fetch(`http://localhost:8080/trips`)
   const body = await response.json()
   trips.value = body
+
+  // pickup first 3 trips with images for page header
+  const withImages = []
+  for(const {id, place} of body.slice(0,3)) {
+    const imageResponse = await fetch(`http://localhost:8080/file/${id}`)
+    const file = await imageResponse.blob()
+    const base64data = await readFileAsync(file)
+    withImages.push({id, place, image: base64data})
+  }
+  tripsWithImages.value = withImages
 }
 
 export default {
@@ -78,6 +102,7 @@ export default {
         OmanPreview: OmanPreview,
         trips: trips,
         modalOpen: modalOpen,
+        tripsWithImages,
     }
   },
   async mounted() {

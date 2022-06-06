@@ -62,13 +62,21 @@ export default {
       if(image.value.name) {
         const form = new FormData();
         form.append("file", image.value);
-        await fetch(`http://localhost:8080/upload/file/${id}`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-          },
-          body: form,
+        try {
+          await fetch(`http://localhost:8080/upload/file/${id}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+            },
+            body: form,
         });
+        } catch (error) {
+          this.$notify({
+            title: "Plik za duzy",
+            type: "error",
+            text: "Ogarnij sie pik nie moze być wiekszy niz 1048576 bajtów",
+          })
+        }
       }
       this.$emit('refresh-trips');
     },
