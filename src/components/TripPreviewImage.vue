@@ -27,6 +27,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin: 0 auto;
+    padding: 2em;
   }
   .imgLabel {
     border-radius: 45px;
