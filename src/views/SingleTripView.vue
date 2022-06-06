@@ -2,17 +2,23 @@
   <div class="arrangementsContainer">
     <div class="arrangements">
       <div class="col">
-        <custom-button label="Dodaj to do" @handle-click="toDoOpenModal" />
-        <div class="cell" v-for="({id, note}) in toDo" v-bind:key="id">{{note}}</div>
+        <custom-button label="Dodaj to do" @handle-click="() => toDoHandleModal(true)" />
+        <div class="cell" v-for="({id, note}) in toDo" v-bind:key="id">
+          <span>{{note}}</span>
+          <a class="close" @click="$emit('x')" />
+        </div>
       </div>
       <div class="col">
-        <custom-button label="Dodaj co zabrać" @handle-click="toTakeOpenModal" />
-        <div class="cell" v-for="({id, note}) in toTake" v-bind:key="id">{{note}}</div>
+        <custom-button label="Dodaj co zabrać" @handle-click="() => toTakeHandleModal(true)" />
+        <div class="cell" v-for="({id, note}) in toTake" v-bind:key="id">
+          <span>{{note}}</span>
+          <a class="close" @click="$emit('x')" />
+        </div>
       </div>
-      <custom-modal :show-modal="toDoModalOpen" @close-modal="toDoCloseModal" title="Dodaj to do">
+      <custom-modal :show-modal="toDoModalOpen" @close-modal="() => toDoHandleModal(false)" title="Dodaj to do">
         <add-arrangement-form @refresh-arrangements="refreshArrangements" type="toDo" :tripId="tripId" />
       </custom-modal>
-      <custom-modal :show-modal="toTakeModalOpen" @close-modal="toTakeCloseModal" title="Dodaj co zabrać">
+      <custom-modal :show-modal="toTakeModalOpen" @close-modal="() => toTakeHandleModal(false)" title="Dodaj co zabrać">
         <add-arrangement-form @refresh-arrangements="refreshArrangements" type="toTake" :tripId="tripId" />
       </custom-modal>
     </div>
@@ -56,17 +62,11 @@ export default {
     AddArrangementForm,
 },
   methods: {
-    toDoCloseModal: function() {
-      toDoModalOpen.value = false;
+    toDoHandleModal: function(value) {
+      toDoModalOpen.value = value;
     },
-    toTakeCloseModal: function() {
-      toTakeModalOpen.value = false;
-    },
-    toDoOpenModal: function() {
-      toDoModalOpen.value = true;
-    },
-    toTakeOpenModal: function() {
-      toTakeModalOpen.value = true;
+    toTakeHandleModal: function(value) {
+      toTakeModalOpen.value = value;
     },
     refreshArrangements: function() {
       toDoModalOpen.value = false;
@@ -111,15 +111,44 @@ export default {
   }
 
   .cell {
+    position: relative;
     margin-top: 1em;
     background-color: #E4CEF9;
     border-radius: 10px;
     padding: 20px;
-    display: block;
+    display: flex;
+    justify-content: space-between;
   }
-
   .col {
     width: 25%;
   }
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #9e8370;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
+
 
 </style>
