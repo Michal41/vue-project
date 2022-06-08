@@ -5,11 +5,12 @@
 
     </div>
   </div>
-  <div class="listSectionContainer">
-    <div class="listSection">
+  <div class="listSectionContainer container-fluid">
+    <div class="listSection row">
       <h3 class="addTripTitle">
         Dodaj podróz
       </h3>
+      
       <table class="tripsTable">
         <tr>
           <th><span>Miejsce</span></th>
@@ -29,7 +30,9 @@
           <add-trip-form @refresh-trips="refreshTrips" />
         </custom-modal>
     </div>
-  </div>
+
+
+
 </template>
 
 <script>
@@ -118,8 +121,6 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-image: linear-gradient(#E1DDFE 0%,#FEC8FC 30%, #FFEDE4 100%);
-    display: flex;
-    justify-content: space-between;
   }
   .listSectionContainer {
     width: 100%;
@@ -128,13 +129,9 @@ export default {
     background-image: linear-gradient(#FFEDE4 0%,#FEC8FC 30%, #E1DDFE 100%);
   }
   .imagesContainer {
-    margin: auto;
     width: 100%;
-    padding: 3em;
-    display: flex;
+    justify-items: center;
     align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
   }
   .addTripTitle {
     margin: 0px;
@@ -156,7 +153,7 @@ export default {
     border-spacing: 1em;
   }
 
-  .tripsTable th span {
+  div span {
     border-bottom: 8px solid #707070;
     display: block;
     margin-right: 1em;
@@ -182,5 +179,6 @@ export default {
     justify-content: flex-end;
     margin-right: 2em;
     padding-bottom: 3em;
+    margin-top: 10px;
   }
 </style>
