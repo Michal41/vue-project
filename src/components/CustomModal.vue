@@ -44,6 +44,7 @@
     border-radius: 10px;
   }
   .container {
+    font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,6 +86,9 @@
   }
   .close:after {
     transform: rotate(-45deg);
+  }
+   h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
   }
 
 </style>
