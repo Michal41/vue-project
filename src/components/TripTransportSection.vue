@@ -23,15 +23,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="({id, name, startDate, startPlace, endDate, endPlace, notes}) in trips" v-bind:key="id">
-              <th scope="row">1</th>
+            <tr v-for="({id, name, startDate, startPlace, endDate, endPlace, notes}, index) in trips" v-bind:key="id">
+              <th scope="row">{{index + 1}}</th>
               <td>{{name}}</td>
               <td>{{startDate}}</td>
               <td>{{startPlace}}</td>
               <td>{{endDate}}</td>
               <td>{{endPlace}}</td>
               <td>{{notes}}</td>
-              <td><table-buttons></table-buttons></td>
+              <td><table-buttons @handleClickRemove="removeTransport(id)"/></td>
             </tr>
           </tbody>
         </table>
@@ -75,6 +75,17 @@ export default {
       const { id } = this.$route.params
       fetchTransport(id)
     },
+    removeTransport: async function(tripId) {
+      await fetch(`http://localhost:8080/transport/${tripId}`, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const { id } = this.$route.params
+      fetchTransport(id)
+    }
   },
   data: function () {
     return {
