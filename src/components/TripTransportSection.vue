@@ -39,7 +39,7 @@
     </div>
   </div>
   <custom-modal :show-modal="showMoal" title="Transport" @close-modal="() => setModal(false)">
-    <transport-configuration-form @refresh-transports="refreshTrips"/>
+    <transport-configuration-form @refresh-transports="refreshTrips" />
   </custom-modal>
 </template>
 
