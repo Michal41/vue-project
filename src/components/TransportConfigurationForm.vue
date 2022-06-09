@@ -30,6 +30,11 @@
       :customStyles="{width: '45%', height: '60px'}"
       @handle-change="(e) => handleInputChange('order', e)"
     />
+    <custom-text-area
+      placeholder="Notatka"
+      :customStyles="{width: '100%'}"
+      @handle-change="(e) => handleInputChange('notes', e)"
+    />
     <div class="buttonContainer">
       <custom-button
         label="Dodaj"
@@ -45,6 +50,7 @@
 import CustomButton from './CustomButton.vue';
 import CustomDatePicker from './CustomDatePicker.vue';
 import CustomInput from './CustomInput.vue';
+import CustomTextArea from './CustomTextArea.vue';
 
 import { ref } from 'vue';
 const formValues = ref({ name: '', startDate: '', startPlace: '', endDate: '', order: '' })
@@ -53,7 +59,8 @@ export default {
   components: {
     CustomButton,
     CustomDatePicker,
-    CustomInput
+    CustomInput,
+    CustomTextArea
 },
   methods: {
     addTrip: async function(routeParams) {
