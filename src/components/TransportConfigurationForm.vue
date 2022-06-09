@@ -37,13 +37,14 @@
       @handle-change="(e) => handleInputChange('order', e)"
     />
     <custom-text-area
+      :value="formValues.notes"
       placeholder="Notatka"
       :customStyles="{width: '100%'}"
       @handle-change="(e) => handleInputChange('notes', e)"
     />
     <div class="buttonContainer">
       <custom-button
-        label="Dodaj"
+        :label="this.activeTransportId ? 'Edytuj' : 'Dodaj'"
         @click="addTransport($route.params)"
         :disabled="[formValues.name, formValues.startDate, formValues.startPlace,
                     formValues.endDate, formValues.order].some(item => item.length == 0)"
@@ -69,15 +70,27 @@ export default {
 },
   methods: {
     addTransport: async function(routeParams) {
-      const { id } = routeParams
-      await fetch(`http://localhost:8080/transport/${id}`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formValues.value),
-      });
+      // if activeTransportid is passed to component update action is called otherwise create action
+      if(this.activeTransportId) {
+        await fetch(`http://localhost:8080/transport/${this.activeTransportId}`, {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formValues.value),
+        });
+      } else {
+        const { id } = routeParams
+        await fetch(`http://localhost:8080/transport/${id}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formValues.value),
+        });
+      }
       this.$emit('refresh-transports');
     },
     handleInputChange: function(type, e) {
@@ -91,12 +104,18 @@ export default {
       formValues.value = values
     }
   },
+  props: ['activeTransportId'],
   data: function () {
     return {
       formValues: formValues,
     }
   },
   async mounted() {
+    if(this.activeTransportId) {
+      const response = await fetch(`http://localhost:8080/transport/${this.activeTransportId}`)
+      const body = await response.json()
+      formValues.value = body
+    }
   }
 }
 
